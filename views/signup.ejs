@@ -1,0 +1,61 @@
+<!-- signup.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - UserPilot</title>
+  <link rel="stylesheet" href="/login-signup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <img src="/Images/logo.png" alt="School Logo" class="logo">
+      <h2>User Management System</h2>
+      <div class="features">
+        <div class="feature-box">
+          <div class="icon green"></div>
+          <p>Simple & Flexible</p>
+        </div>
+        <div class="feature-box">
+          <div class="icon orange"></div>
+          <p>Easily Manageable</p>
+        </div>
+        <div class="feature-box">
+          <div class="icon blue"></div>
+          <p>User Friendly</p>
+        </div>
+      </div>
+    </div>
+    <div class="right-panel">
+      <form class="form" action="/signup" method="POST">
+        <h2>Sign Up</h2>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+        <p>Already have an account? <a href="/">Sign In</a></p>
+      </form>
+
+      <% if (error) { %>
+        <div class="error-message">
+          <p><%= error %></p>
+        </div>
+      <% } else if (message) { %>
+        <div class="success-message">
+          <p><%= message %></p>
+        </div>
+
+        <% if (redirect) { %>
+          <script>
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 3000); // Redirect after 2 seconds
+          </script>
+        <% } %>
+      <% } %>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f5f6;
+    }
+    .header {
+      background-color: #2c3446;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+    }
+    .profile img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+    .main {
+      padding: 2rem;
+    }
+    .main h2 {
+      margin-bottom: 0.5rem;
+    }
+    .breadcrumbs {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .search-add {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .search-add input {
+      padding: 0.5rem;
+      width: 250px;
+    }
+    .search-add button {
+      background-color: #facc15;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      background-color: white;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background-color: #f9fafb;
+    }
+    .badge {
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: white;
+    }
+    .badge.remove {
+      background-color: #ff4124;
+    }
+    .badge.modify {
+      background-color: #059669;
+    }
+    
+    .actions button {
+      margin-right: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      background-color: #e5e7eb;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 400px;
+      position: relative;
+      text-align: center;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+    }
+    .modal-content label {
+      display: block;
+      margin-top: 1rem;
+      text-align: left;
+    }
+    .modal-content input, .modal-content select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .modal-content button {
+      margin-top: 1.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #059669;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .modal-content .danger {
+      background-color: #ef4444;
+      margin-left: 0.5rem;
+    }
+
+    .modal-actions{
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }

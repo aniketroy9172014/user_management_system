@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management Panel</title>
+  <link rel="stylesheet" href="/admin-panel.css">
+
+</head>
+<body>
+  <div class="header">
+    <h1>UserPilot</h1>
+    <div class="profile">
+      <span>Aniket Roy</span>
+      <img src="Images/Aniket Roy.jpeg" alt="User Avatar">
+    </div>
+  </div>
+
+  <div class="main">
+    <h2>User Management System</h2>
+    <div class="breadcrumbs">
+      <span>Home</span> &gt; <span>User Management</span>
+    </div>
+
+    <div class="search-add">
+      <input type="text" placeholder="Search User" id="searchInput">
+      <button onclick="openAddModal()">Add User</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>SL No.</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Roles</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="userTable">
+        <!--Loop through all users-->
+        <% users.forEach(user =>{ %>
+        <tr>
+          <td><%= users.indexOf(user) + 1 %></td>
+          <td><%= user.name %></td>
+          <td><%= user.age %></td>
+          <td><%= user.role %></td>
+          <td><%= user.email %></td>
+          <td class="actions">
+            <button class="badge modify" 
+            onclick="openModifyModal('<%= user._id %>')"
+            data-id="<%= user._id %>"
+            data-name="<%= user.name %>"
+            data-age="<%= user.age %>"
+            data-role="<%= user.role %>"
+            data-email="<%= user.email %>"
+            > Modify User </button>
+
+            <button class="badge remove" 
+            onclick="openRemoveModal('<%= user._id %>')" 
+            data-id="<%= user._id %>"
+            >Remove User</button>
+          </td>
+        </tr>
+      <% }) %>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add User Modal -->
+  <div class="modal" id="userModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeAddModal()">&times;</button>
+
+      <h3>Add New User</h3>
+
+      <form action="/add-user" method="post">
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Full Name">
+        <label>Age</label>
+        <input type="number" name="age" placeholder="Age">
+        <label>Role</label>
+        <select name="role">
+          <option value="" disabled selected>Select Role</option>
+          <option>Manager</option>
+          <option>Developer</option>
+          <option>HR</option>
+          <option>DevOps</option>
+        </select>
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Email">
+        <button type="submit">Add User</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Modify User Modal -->
+  <div class="modal" id="roleModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModifyModal()">&times;</button>
+      <h3>Modify User Roles</h3>
+      <form action="/modify-user" method="post">
+        <input type="hidden" name="id" value="">
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Full Name">
+        <label>Age</label>
+        <input type="number" name="age" placeholder="Age">
+        <label>Role</label>
+        <select name="role">
+          <option value="" disabled selected>Select Role</option>
+          <option>Manager</option>
+          <option>Developer</option>
+          <option>HR</option>
+          <option>DevOps</option>
+        </select>
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Email">
+
+        <button type="submit">Save Changes</button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Remove User Modal -->
+  <div class="modal" id="removeModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeRemoveModal()">&times;</button>
+      <h3>Delete user – are you sure?</h3>
+      <div class="modal-actions">
+        <form action="/remove-user" method="post">
+          <input type="hidden" name="id">
+          <button type="submit">Yes, Remove</button>
+        </form>
+          <button class="danger" onclick="closeRemoveModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    function openAddModal() {
+      document.getElementById('userModal').style.display = 'flex';
+    }
+    function closeAddModal() {
+      document.getElementById('userModal').style.display = 'none';
+      window.location.href = "/admin-panel";
+    }
+    function openModifyModal(id) {
+      const btn = document.querySelector(`button.modify[data-id="${id}"]`);
+      if (!btn) return;
+
+      //get user data from button attributes
+      const name = btn.getAttribute('data-name');
+      const age = btn.getAttribute('data-age');
+      const role = btn.getAttribute('data-role');
+      const email = btn.getAttribute('data-email');
+
+      //set values in the modal
+      document.querySelector('#roleModal input[name="id"]').value = id;
+      document.querySelector('#roleModal input[name=\"name\"]').value = name;
+      document.querySelector('#roleModal input[name=\"age\"]').value = age;
+      document.querySelector('#roleModal select[name=\"role\"]').value = role;
+      document.querySelector('#roleModal input[name=\"email\"]').value = email;
+
+      //open the modal
+      document.getElementById('roleModal').style.display = 'flex';
+    }
+
+    function closeModifyModal() {
+      document.getElementById('roleModal').style.display = 'none';
+      window.location.href = "/admin-panel";
+    }
+
+    function openRemoveModal(id) {
+      // Find the button that was clicked
+      const btn = document.querySelector(`button.remove[data-id="${id}"]`);
+      if (!btn) return;
+
+      // Set the user ID in the hidden input field of the modal
+      document.querySelector('#removeModal input[name="id"]').value= id;
+      
+      document.getElementById('removeModal').style.display = 'flex';
+    }
+
+    function closeRemoveModal() {
+      document.getElementById('removeModal').style.display = 'none';
+      window.location.href = "/admin-panel";
+    }
+
+    function confirmRemoveUser() {
+      alert("User removed successfully.");
+      closeRemoveModal();
+      // Additional logic to remove user can be added here
+    }
+
+  </script>
+</body>
+</html>
