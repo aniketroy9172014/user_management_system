@@ -1,4 +1,4 @@
-    body {
+body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f3f5f6;
@@ -149,3 +149,106 @@
       justify-content: center;
       margin-top: 1.5rem;
     }
+
+    /* Hide clear (X) button in search input for WebKit browsers */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+/* Hide clear (X) button in search input for Edge/IE */
+input[type="search"]::-ms-clear {
+  display: none;
+}
+input[type="search"]::-ms-reveal {
+  display: none;
+}
+
+/* Custom style for the clear (X) button in search input for WebKit browsers */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  background: url('data:image/svg+xml;utf8,<svg fill="%23059669" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="%23e5e7eb"/><path d="M6 6l8 8M14 6l-8 8" stroke="%23059669" stroke-width="2" stroke-linecap="round"/></svg>') center/contain no-repeat;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+#clearSearchBtn {
+  display: none;
+  position: absolute;
+  right: 0.2px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #059669;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+.controls {
+  position: relative;
+  display: inline-block;
+  width: 250px;
+}
+#searchInput {
+  width: 100%;
+  padding-right: 2em;
+}
+
+/* Only keep phone responsive code */
+@media (max-width: 700px) {
+  .main {
+    width: 100vw;
+    padding: 0.2rem;
+    overflow-x: unset;
+  }
+  .table-responsive {
+    width: 100vw;
+    overflow-x: auto;
+  }
+  .main table {
+    min-width: 700px;
+    width: max-content;
+    display: table;
+    white-space: nowrap;
+    border-radius: 8px;
+    background: #fff;
+    overflow-x: auto;
+  }
+  .main th, .main td {
+    font-size: 0.95em;
+    padding: 0.5em 0.3em;
+    word-break: break-all;
+    min-width: 90px;
+    max-width: 180px;
+    text-overflow: ellipsis;
+    overflow: visible;
+  }
+  .main th {
+    background: #f9fafb;
+  }
+  .main {
+    padding: 0.2rem;
+  }
+  .badge, .actions button {
+    font-size: 0.85em;
+    padding: 0.4em 0.7em;
+    min-width: 80px;
+    max-width: 120px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+}
+
+@media (max-width: 400px) {
+  .header h1, .main h2 {
+    font-size: 1rem;
+  }
+  .modal-content {
+    padding: 0.1rem;
+  }
+}

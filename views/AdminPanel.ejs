@@ -16,18 +16,22 @@
     </div>
   </div>
 
-  <div class="main">
+<div class="main">
     <h2>User Management System</h2>
     <div class="breadcrumbs">
       <span>Home</span> &gt; <span>User Management</span>
     </div>
 
     <div class="search-add">
-      <input type="text" placeholder="Search User" id="searchInput">
+      <div class="controls">
+        <input type="search" placeholder="Search User" id="searchInput">
+        <button type="button" id="clearSearchBtn" aria-label="Clear search">&times;</button>
+      </div>
       <button onclick="openAddModal()">Add User</button>
     </div>
-
-    <table>
+  
+  <div class="table-responsive">
+    <table class="searchable-table">
       <thead>
         <tr>
           <th>SL No.</th>
@@ -68,6 +72,7 @@
       </tbody>
     </table>
   </div>
+</div>
 
   <!-- Add User Modal -->
   <div class="modal" id="userModal">
@@ -195,6 +200,35 @@
       alert("User removed successfully.");
       closeRemoveModal();
       // Additional logic to remove user can be added here
+    }
+
+    document.querySelectorAll('.controls').forEach(function(ctrl) {
+      var input = ctrl.querySelector('input[type="search"]');
+      var table = document.querySelector('table.searchable-table');
+      if (input && table) {
+        input.addEventListener('input', function() {
+          var filter = input.value.toLowerCase();
+          table.querySelectorAll('tbody tr').forEach(function(row) {
+            var text = row.textContent.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+          });
+        });
+      }
+    });
+
+    // Custom clear (X) button for search input
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearchBtn');
+    if (searchInput && clearBtn) {
+      searchInput.addEventListener('input', function() {
+        clearBtn.style.display = searchInput.value ? 'block' : 'none';
+      });
+      clearBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        // Trigger input event to update table
+        searchInput.dispatchEvent(new Event('input'));
+      });
     }
 
   </script>

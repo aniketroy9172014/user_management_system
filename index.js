@@ -42,9 +42,15 @@ app.get('/admin-panel', async (req, res) => {
 app.post('/signup', async (req, res) => {
     const { username, email, password } = req.body;
     try {
-        const newAdmin = new Admin({ username, email, password });
-        await newAdmin.save();
-        res.render('signup', { message: 'Sign up successful. You can now log in.', error: null, redirect: true });
+        // Check if the username or email already exists
+        const existingAdmin = await Admin.findOne({ $or: [{ username }, { email }] });
+        if (existingAdmin) {
+            res.render('signup', { error: 'Username or email already exists.', message: null, redirect: false });
+        } else {
+            const newAdmin = new Admin({ username, email, password });
+            await newAdmin.save();
+            res.render('signup', { message: 'Sign up successful. You can now log in.', error: null, redirect: true });
+        }
     } catch (error) {
         console.error('Error in Sign up:', error);
         res.render('signup', { error: 'Sign up faild.', message: null, redirect: false });
@@ -55,10 +61,14 @@ app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const admins = await Admin.findOne({ username, password });
-        if (admins.username === username && admins.password === password) {
-            res.render('login', { message: 'Login successful!', error: null, redirect: true });
+        if (admins.username === username) {
+            if (admins.password === password) {
+                res.render('login', { message: 'Login successful!', error: null, redirect: true });
+            } else {
+                res.render('login', { error: 'Invalid password.', message: null, redirect: false });
+            } 
         } else {
-            res.render('login', { error: 'Invalid username or password.', message: null, redirect: false });
+            res.render('login', { error: 'Invalid username.', message: null, redirect: false });
         }
     } catch (error) {
         console.error('Error in Log in:', error);

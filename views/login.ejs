@@ -40,6 +40,12 @@
         <div class="error-message">
           <p><%= error %></p>
         </div>
+        <script>
+          setTimeout(() => {
+            document.querySelector('.error-message').style.display = 'none';
+          }, 2000); //appear only for 2 seconds
+        </script>
+
       <% } else if (message) { %>
         <div class="success-message">
           <p><%= message %></p>
@@ -49,7 +55,7 @@
           <script>
             setTimeout(() => {
               window.location.href = "/admin-panel";
-            }, 2000); // Redirect after 2 seconds
+            }, 1000); // Redirect after 1 seconds
           </script>
         <% } %>
       <% } %>
